@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Marketing OS v3 - Media Plan Builder</title>
+<style>
+body{margin:0;background:#050505;color:#fff;font-family:Segoe UI,Tahoma}
+.header{padding:20px;background:#0d0d0d;border-bottom:1px solid #222}
+.wrap{max-width:1400px;margin:auto;padding:20px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.card{background:#111;border:1px solid #222;border-radius:18px;padding:18px}
+input,select{width:100%;padding:12px;background:#080808;color:#fff;border:1px solid #333;border-radius:10px;margin-top:8px}
+button{background:#fff;color:#000;border:none;padding:12px 18px;border-radius:12px;font-weight:700;cursor:pointer;margin-top:15px}
+.result{margin-top:20px;background:#111;border:1px solid #222;border-radius:18px;padding:20px;white-space:pre-wrap}
+</style>
+</head>
+<body>
+<div class="header"><h1>📈 AI Media Plan Builder Pro</h1></div>
+
+<div class="wrap">
+<div class="grid">
+<div class="card">
+<h3>Business Brief</h3>
+
+<label>Business Type</label>
+<input id="business" value="Fashion">
+
+<label>Country</label>
+<select id="country">
+<option>Saudi Arabia</option>
+<option>UAE</option>
+<option>Kuwait</option>
+<option>Qatar</option>
+</select>
+
+<label>Budget</label>
+<input id="budget" value="100000">
+
+<label>Goal</label>
+<select id="goal">
+<option>Purchases</option>
+<option>Leads</option>
+<option>Traffic</option>
+</select>
+
+<label>AOV</label>
+<input id="aov" value="350">
+
+<button onclick="generate()">Generate Media Plan</button>
+</div>
+
+<div class="card">
+<h3>🧠 AI Strategy Summary</h3>
+<div id="summary">اضغط Generate</div>
+</div>
+</div>
+
+<div class="result" id="output"></div>
+</div>
+
+<script>
+function generate(){
+ let business=document.getElementById('business').value;
+ let country=document.getElementById('country').value;
+ let budget=parseFloat(document.getElementById('budget').value||0);
+ let aov=parseFloat(document.getElementById('aov').value||0);
+
+ let snap=Math.round(budget*0.45);
+ let google=Math.round(budget*0.30);
+ let meta=Math.round(budget*0.20);
+ let tiktok=Math.round(budget*0.05);
+
+ document.getElementById('summary').innerHTML=
+ `يوصى بالاعتماد على Snapchat للتوسع و Google للحصول على نية شراء مرتفعة مع استخدام Meta للريتارجتنج.`;
+
+ let cities = country==="Saudi Arabia"
+ ? "Riyadh, Jeddah, Dammam, Khobar, Makkah"
+ : "Dubai, Abu Dhabi, Sharjah";
+
+ let revenue=(budget*4).toLocaleString();
+
+ document.getElementById('output').textContent=`
+MEDIA PLAN
+
+Business: ${business}
+Country: ${country}
+Budget: ${budget.toLocaleString()}
+
+=== Budget Allocation ===
+Snapchat: ${snap.toLocaleString()}
+Google: ${google.toLocaleString()}
+Meta: ${meta.toLocaleString()}
+TikTok: ${tiktok.toLocaleString()}
+
+=== Locations ===
+${cities}
+
+=== SNAPCHAT ===
+Campaign:
+SNAP | PURCHASE | BROAD
+
+Budget:
+${snap}
+
+Audience:
+18-34
+Online Shopping
+Fashion
+Lifestyle
+
+Retargeting:
+Website Visitors
+ATC
+IC
+
+=== GOOGLE ===
+Search Brand
+Search Generic
+PMax
+Remarketing
+
+Budget:
+${google}
+
+=== META ===
+Broad Purchase
+LAL Purchasers
+Retargeting
+Catalog Sales
+
+Budget:
+${meta}
+
+=== TIKTOK ===
+UGC Scaling
+Creator Testing
+
+Budget:
+${tiktok}
+
+=== Forecast ===
+Target ROAS: 4
+Expected Revenue: ${revenue}
+Estimated Orders: ${Math.round((budget*4)/aov)}
+`;
+}
+generate();
+</script>
+</body>
+</html>
